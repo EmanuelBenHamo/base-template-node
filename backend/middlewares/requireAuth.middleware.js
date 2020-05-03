@@ -1,9 +1,8 @@
-const logger = require('../services/logger.service')
+const logger = require('../services/logger.service');
 
 async function requireAuth(req, res, next) {
-    console.log('auth middlewere req:', req.session)
     if (!req.session || !req.session.user) {
-        res.status(401).end('Unauthorized!');
+        res.status(401).end('Unauthenticated');
         return;
     }
     next();
@@ -12,7 +11,7 @@ async function requireAuth(req, res, next) {
 async function requireAdmin(req, res, next) {
     const user = req.session.user;
     if (!user.isAdmin) {
-        res.status(403).end('Unauthorized Enough..');
+        res.status(403).end('Unauthorized Enough...');
         return;
     }
     next();
