@@ -6,8 +6,9 @@ const cors = require('cors');
 const path = require('path');
 
 const app = express();
-const http = require('http').createServer(app);
-// const io = require('socket.io')(http);
+const http = require('http');
+const server = http.createServer(app);
+// const io = require('socket.io')(server);
 
 const taskRoutes = require('./api/task/task.routes');
 // const connectSockets = require('./api/socket/socket.routes');
@@ -39,6 +40,6 @@ app.use('/api/task', taskRoutes);
 const logger = require('./services/logger.service')
 const port = process.env.PORT || 3030;
 
-http.listen(port, () => {
+server.listen(port, () => {
     logger.info(`Server is running on port: ${port}`);
 });
